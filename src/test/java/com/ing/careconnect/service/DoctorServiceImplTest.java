@@ -92,6 +92,8 @@ public class DoctorServiceImplTest {
 		user = new Users();
 		user.setMobile(123456789L);
 		user.setUserId(1L);	
+		user.setFirstName("fName");
+		user.setLastName("lName");
 		
 		listOfSearchResponseDtos = new ArrayList<>();
 		
@@ -113,6 +115,7 @@ public class DoctorServiceImplTest {
 	public void getBookedSlotsTest() {
 		Mockito.when(doctorRepository.findById(1L)).thenReturn(doctorOpt);
 		Mockito.when(bookingRepository.findByDoctorId(1L)).thenReturn(bookingList);
+		Mockito.when(userRepository.findById(1L)).thenReturn(usersOpt);
 		doctorsResponseDto = doctorServiceImpl.getBookedSlots(1L);		
 		assertEquals(SUCCESS, responseDto.getMessage());		
 	}

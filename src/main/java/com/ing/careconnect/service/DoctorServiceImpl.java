@@ -54,7 +54,7 @@ public class  DoctorServiceImpl implements DoctorService{
 		List<Bookings> bookingResp = bookingRepository.findByDoctorId(doctorId1);
 		Optional<Users>  usersResp = userRepository.findById(doctorResp.get().getUserId());
 		String firstName = usersResp.get().getFirstName();
-		 String lastName = usersResp.get().getLastName();
+		String lastName = usersResp.get().getLastName();
 		doctorsResponseDto.setMessage("success");
 		doctorsResponseDto.setStatusCode(200);
 		doctorsResponseDto.setBooking(bookingResp);
