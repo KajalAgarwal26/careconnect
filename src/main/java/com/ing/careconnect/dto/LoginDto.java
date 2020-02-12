@@ -4,14 +4,15 @@ import java.io.Serializable;
 
 public class LoginDto implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String email;
+	private Long mobile;
 	private String password;
 
-	public String getEmail() {
-		return email;
+	
+	public Long getMobile() {
+		return mobile;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

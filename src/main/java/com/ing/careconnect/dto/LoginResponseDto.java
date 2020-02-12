@@ -6,15 +6,21 @@ public class LoginResponseDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String message;
 	private Integer statusCode;
-	private Long userId;
+	private Long doctorId;
 
 
-	public Long getUserId() {
-		return userId;
+	
+
+	public Long getDoctorId() {
+		return doctorId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getMessage() {

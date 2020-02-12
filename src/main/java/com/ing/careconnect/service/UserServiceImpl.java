@@ -1,20 +1,18 @@
 package com.ing.careconnect.service;
 
-import org.springframework.stereotype.Service;
-
-import com.ing.careconnect.dto.LoginDto;
-import com.ing.careconnect.dto.LoginResponseDto;
-import com.ing.careconnect.entity.Users;
-import com.ing.careconnect.exception.UserNotFoundException;
-import com.ing.careconnect.repository.UserRepository;
-import com.ing.careconnect.util.LibraryUtil;
-
-import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
-
+import com.ing.careconnect.constant.CareConnectConstant;
+import com.ing.careconnect.dto.LoginDto;
+import com.ing.careconnect.dto.LoginResponseDto;
+import com.ing.careconnect.entity.Doctors;
+import com.ing.careconnect.entity.Users;
+import com.ing.careconnect.exception.UserNotFoundException;
+import com.ing.careconnect.repository.DoctorRepository;
+import com.ing.careconnect.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,21 +20,24 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	DoctorRepository doctorRepository;
+
 	@Override
 	public LoginResponseDto usersLogin(LoginDto userDto) {
-		List<Users> users = userRepository.findAll();
-		
-		LoginResponseDto responseDto = new LoginResponseDto();
+		Users user = userRepository.findByMobileAndPassword(userDto.getMobile(), userDto.getPassword());
+		Doctors doctor = new Doctors();
+		if (!Objects.isNull(user)) {
+			if (user.getType().equalsIgnoreCase(CareConnectConstant.DOCTOR_TYPE)) {
+				doctor = doctorRepository.findByUserId(user.getUserId());
+			}
 
-		/*
-		 * for (Users user : users) {
-		 * if((userDto.getEmail().equalsIgnoreCase(user.getUserEmail()))&&
-		 * (user.getUserPassword()).equals(userDto.getPassword())) {
-		 * responseDto.setMessage(LibraryUtil.LOGIN_SUCCESS);
-		 * responseDto.setStatusCode(HttpStatus.OK.value());
-		 * responseDto.setUserId(user.getUserId()); return responseDto; } else { throw
-		 * new UserNotFoundException(LibraryUtil.INVALID_LOGIN); } }
-		 */
+		} else {
+			throw new UserNotFoundException("Invalid User");
+		}
+
+		LoginResponseDto responseDto = new LoginResponseDto();
+		responseDto.setDoctorId(doctor.getDoctorId());
 		return responseDto;
 	}
 
