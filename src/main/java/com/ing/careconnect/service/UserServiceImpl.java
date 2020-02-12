@@ -28,17 +28,15 @@ public class UserServiceImpl implements UserService {
 		
 		LoginResponseDto responseDto = new LoginResponseDto();
 
-		for (Users user : users) {
-			if((userDto.getEmail().equalsIgnoreCase(user.getUserEmail()))&& (user.getUserPassword()).equals(userDto.getPassword())) {
-				responseDto.setMessage(LibraryUtil.LOGIN_SUCCESS);
-				responseDto.setStatusCode(HttpStatus.OK.value());
-				responseDto.setUserId(user.getUserId());
-				return responseDto;
-			}
-			else {
-				throw new UserNotFoundException(LibraryUtil.INVALID_LOGIN);
-			}
-		}
+		/*
+		 * for (Users user : users) {
+		 * if((userDto.getEmail().equalsIgnoreCase(user.getUserEmail()))&&
+		 * (user.getUserPassword()).equals(userDto.getPassword())) {
+		 * responseDto.setMessage(LibraryUtil.LOGIN_SUCCESS);
+		 * responseDto.setStatusCode(HttpStatus.OK.value());
+		 * responseDto.setUserId(user.getUserId()); return responseDto; } else { throw
+		 * new UserNotFoundException(LibraryUtil.INVALID_LOGIN); } }
+		 */
 		return responseDto;
 	}
 
