@@ -15,12 +15,12 @@ public class UserSlotRequestDto {
 	}
 	public void setDoctorId(Long doctorId) {
 		this.doctorId = doctorId;
-	}
+	}	
 	public String getSlot() {
 		return slot;
 	}
 	public void setSlot(String slot) {
-		slot = slot;
+		this.slot = slot;
 	}
 	public String getFirstName() {
 		return firstName;
