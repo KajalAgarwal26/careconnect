@@ -60,8 +60,8 @@ public class  DoctorServiceImpl implements DoctorService{
 		
 		List<Bookings> bookingList = new ArrayList<>();
 		ResponseDto responseDto = new ResponseDto();
-		String fromDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getFromTime();
-		String toDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getToTime();
+		String fromDateTime = slotRequestDto.getBlockDate() +" "+ slotRequestDto.getFromTime();
+		String toDateTime = slotRequestDto.getBlockDate() +" "+ slotRequestDto.getToTime();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM);
 		LocalDateTime dateFirst = LocalDateTime.parse(fromDateTime, formatter);
@@ -73,7 +73,7 @@ public class  DoctorServiceImpl implements DoctorService{
 			//Create Booking entity.
 			Bookings booking = new Bookings();
 			booking.setDoctorId(doctorId);
-			booking.setDate(slotRequestDto.getDate());
+			booking.setBlockDate(slotRequestDto.getBlockDate());
 			String[] slipSlots = dateBetween.format(formatter).split(" ");
 			booking.setSlots(slipSlots[1]);
 			bookingList.add(booking);			
