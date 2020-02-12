@@ -1,13 +1,18 @@
 package com.ing.careconnect.entity;
 
 import javax.persistence.Entity;
+
+
+import javax.persistence.Table;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
+
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,10 +83,5 @@ public class Users {
 	}
 	public Users() {
 		super();
-	}
-	
-	
-	
-	
-
+	}	
 }

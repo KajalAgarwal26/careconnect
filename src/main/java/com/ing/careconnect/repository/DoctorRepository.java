@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ing.careconnect.entity.Doctors;
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctors, Long>{
-
+Doctors	findByUserId(Long userId);
 
 }

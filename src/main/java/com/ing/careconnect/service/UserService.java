@@ -1,5 +1,9 @@
 package com.ing.careconnect.service;
 
-public interface UserService {
+import com.ing.careconnect.dto.LoginDto;
+import com.ing.careconnect.dto.LoginResponseDto;
 
+public interface UserService {
+	
+	 LoginResponseDto usersLogin(LoginDto userDto); 
 }
