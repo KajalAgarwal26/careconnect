@@ -51,7 +51,7 @@ public class DoctorControllerTest {
 		ResponseEntity<AllDoctorsDTO> allDoctors = doctorController.getAllDoctors();
 
 		Assert.assertNotNull(allDoctors);
-		Assert.assertEquals(allDoctors.getStatusCode().value(), 200);
+		Assert.assertEquals(200, allDoctors.getStatusCode().value());
 
 	}
 
