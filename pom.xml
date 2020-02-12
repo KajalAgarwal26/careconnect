@@ -20,7 +20,9 @@
 			**/dto/*,
 			**/entity/*,
 			**/config/*,
-			**/constant/*
+			**/constant/*,
+			**/exception/*,
+			**/util/*
 		</sonar.coverage.exclusions>
 	</properties>
 
