@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 	
 
 	@ExceptionHandler(SlotBookingFailedException.class)
-	public ResponseEntity<ResponseDto> SlotBookingFailedException() {
+	public ResponseEntity<ResponseDto> slotBookingFailedException() {
 		ResponseDto responseDto = new ResponseDto();
 		responseDto.setMessage("Slot Booking Failed");
 		responseDto.setStatusCode(201);

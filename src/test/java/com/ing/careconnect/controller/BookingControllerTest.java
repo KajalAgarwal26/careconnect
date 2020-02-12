@@ -49,7 +49,7 @@ public class BookingControllerTest {
 			Mockito.when(bookingService.userSlot(userSlotRequestDto)).thenReturn(userSlotResponseDto);
 		ResponseEntity<UserSlotResponseDto> userSlotResponse=	bookingController.createUserSlot(userSlotRequestDto);
 		  Assert.assertNotNull(userSlotResponse);
-		  Assert.assertEquals(userSlotResponse.getStatusCode().value(), 200);
+		  Assert.assertEquals(200, userSlotResponse.getStatusCode().value());
 		 
 
 		}
