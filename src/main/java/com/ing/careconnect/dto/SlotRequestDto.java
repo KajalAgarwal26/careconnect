@@ -2,15 +2,15 @@ package com.ing.careconnect.dto;
 
 public class SlotRequestDto {
 	
-	private String date;
+	private String blockDate;
 	private String fromTime;
 	private String toTime;
 	
-	public String getDate() {
-		return date;
+	public String getBlockDate() {
+		return blockDate;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setBlockDate(String blockDate) {
+		this.blockDate = blockDate;
 	}
 	public String getFromTime() {
 		return fromTime;
