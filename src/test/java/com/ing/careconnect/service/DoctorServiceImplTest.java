@@ -17,12 +17,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.ing.careconnect.dto.AllDoctorsDTO;
 import com.ing.careconnect.dto.DoctorsResponseDto;
 import com.ing.careconnect.dto.ResponseDto;
+import com.ing.careconnect.dto.SearchResponseDto;
 import com.ing.careconnect.dto.SlotRequestDto;
 import com.ing.careconnect.entity.Bookings;
 import com.ing.careconnect.entity.Doctors;
+import com.ing.careconnect.entity.Users;
 import com.ing.careconnect.exception.DoctorNotAvailableException;
+import com.ing.careconnect.exception.UserNotFoundException;
 import com.ing.careconnect.repository.BookingRepository;
 import com.ing.careconnect.repository.DoctorRepository;
+import com.ing.careconnect.repository.UserRepository;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DoctorServiceImplTest {
@@ -36,16 +40,23 @@ public class DoctorServiceImplTest {
 	@Mock
 	DoctorRepository doctorRepository;
 	
+	@Mock
+	UserRepository userRepository;
+	
 	
 	SlotRequestDto slotRequestDto = new SlotRequestDto();
 	ResponseDto responseDto = new ResponseDto();
 	DoctorsResponseDto doctorsResponseDto = new DoctorsResponseDto();
 	AllDoctorsDTO allDoctorsDTO = new AllDoctorsDTO();
+	SearchResponseDto searchResponseDto = new SearchResponseDto();
 	
 	List<Doctors> doctorList = null;
 	Doctors doctor = null;
 	Optional<Doctors> doctorOpt = null;	
-	List<Bookings> bookingList = null;	
+	Optional<Users> usersOpt = null;
+	List<Bookings> bookingList = null;
+	Users user = null;
+	List<SearchResponseDto> listOfSearchResponseDtos = null;
 	
 	static final String SUCCESS = "Success";
 	
@@ -61,6 +72,7 @@ public class DoctorServiceImplTest {
 		doctor = new Doctors();
 		doctor.setDoctorId(1L);
 		doctor.setRating("5");
+		doctor.setUserId(1L);
 		doctorOpt = Optional.of(doctor);
 		
 		Bookings bookings = new Bookings();
@@ -76,11 +88,23 @@ public class DoctorServiceImplTest {
 		doctorList = new ArrayList<>();
 		doctorList.add(doctor);
 		allDoctorsDTO.setDoctors(doctorList);
+		
+		user = new Users();
+		user.setMobile(123456789L);
+		user.setUserId(1L);	
+		
+		listOfSearchResponseDtos = new ArrayList<>();
+		
+		searchResponseDto.setName("Name");
+		searchResponseDto.setDoctorId(1L);
+		listOfSearchResponseDtos.add(searchResponseDto);
+		
+		usersOpt = Optional.of(user);
 	}
 	
 	@Test
 	public void blockSlotsTest() {
-		Mockito.when(bookingRepository.saveAll(Mockito.any())).thenReturn(null);
+		Mockito.when(bookingRepository.saveAll(bookingList)).thenReturn(null);
 		responseDto = doctorServiceImpl.blockSlots(1L, slotRequestDto);		
 		assertEquals(SUCCESS, responseDto.getMessage());		
 	}
@@ -95,8 +119,9 @@ public class DoctorServiceImplTest {
 	
 	@Test(expected=DoctorNotAvailableException.class)
 	public void getBookedSlotsTestException() {
-		Mockito.when(doctorRepository.findById(1L)).thenReturn(doctorOpt);
+		Mockito.when(doctorRepository.findById(22L)).thenReturn(doctorOpt);
 		Mockito.when(bookingRepository.findByDoctorId(1L)).thenReturn(bookingList);
+		doctorsResponseDto = doctorServiceImpl.getBookedSlots(1L);
 	}
 	
 	@Test
@@ -105,4 +130,19 @@ public class DoctorServiceImplTest {
 		allDoctorsDTO = doctorServiceImpl.getAllDoctors();		
 		assertEquals(1, allDoctorsDTO.getDoctors().size());		
 	}
+	
+	@Test
+	public void getAllDoctorsBySearchCreiteriaTest() {
+		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist("Electronic City", "Heart", "Cardiologist")).thenReturn(doctorList);
+		Mockito.when(userRepository.findById(1L)).thenReturn(usersOpt);
+		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria("Electronic City", "Heart", "Cardiologist");		
+		assertEquals(1, listOfSearchResponseDtos.size());		
+	}	
+	
+	@Test(expected=UserNotFoundException.class)
+	public void getAllDoctorsBySearchCreiteriaExceptionTest() {
+		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist("Electronic City", "Heart", "Cardiologist")).thenReturn(doctorList);
+		Mockito.when(userRepository.findById(2L)).thenReturn(usersOpt);
+		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria("Electronic City", "Heart", "Cardiologist");		
+	}	
 }
