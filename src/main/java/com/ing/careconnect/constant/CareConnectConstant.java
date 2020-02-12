@@ -12,6 +12,8 @@ public class CareConnectConstant {
 	
 	//App constants
 	public static final String DOCTOR_TYPE ="DOCTOR";
+	public static final String FAILED_SLOT_BOOKING = "Slot Booking Failed";
+	public static final String SUCCESS_SLOT_BOOKING = "Slot Booking Success";
 	
 	//status code
 	

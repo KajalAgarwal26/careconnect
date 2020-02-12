@@ -21,4 +21,14 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
 	}
 	
+	
+
+	@ExceptionHandler(SlotBookingFailedException.class)
+	public ResponseEntity<ResponseDto> SlotBookingFailedException() {
+		ResponseDto responseDto = new ResponseDto();
+		responseDto.setMessage("Slot Booking Failed");
+		responseDto.setStatusCode(201);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+	}
+	
 }

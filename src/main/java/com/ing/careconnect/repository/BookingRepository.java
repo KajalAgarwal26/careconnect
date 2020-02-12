@@ -10,5 +10,9 @@ import com.ing.careconnect.entity.Bookings;
 @Repository
 public interface BookingRepository extends JpaRepository<Bookings, Long>{
 	List<Bookings> findByDoctorId(Long doctorId);
+	
+  Bookings findBySlots(String slot);
+
+Bookings findBySlotsAndDoctorId(String slot, Long doctorId);
 
 }
