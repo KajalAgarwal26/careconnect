@@ -54,7 +54,7 @@ public class  DoctorServiceImpl implements DoctorService{
 		List<Bookings> bookingResp = bookingRepository.findByDoctorId(doctorId1);
 		
 		doctorsResponseDto.setMessage("success");
-		doctorsResponseDto.setStatusCode(200);;
+		doctorsResponseDto.setStatusCode(200);
 		doctorsResponseDto.setBooking(bookingResp);
 		
 		doctorsResponseDto.setDoctors(doctorResp);
@@ -68,8 +68,8 @@ public class  DoctorServiceImpl implements DoctorService{
 		
 		List<Bookings> bookingList = new ArrayList<>();
 		ResponseDto responseDto = new ResponseDto();
-		String fromDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getFromTime();
-		String toDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getToTime();
+		String fromDateTime = slotRequestDto.getBlockDate() +" "+ slotRequestDto.getFromTime();
+		String toDateTime = slotRequestDto.getBlockDate() +" "+ slotRequestDto.getToTime();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM);
 		LocalDateTime dateFirst = LocalDateTime.parse(fromDateTime, formatter);
@@ -81,7 +81,7 @@ public class  DoctorServiceImpl implements DoctorService{
 			//Create Booking entity.
 			Bookings booking = new Bookings();
 			booking.setDoctorId(doctorId);
-			booking.setDate(slotRequestDto.getDate());
+			booking.setBlockDate(slotRequestDto.getBlockDate());
 			String[] slipSlots = dateBetween.format(formatter).split(" ");
 			booking.setSlots(slipSlots[1]);
 			bookingList.add(booking);			
@@ -93,8 +93,10 @@ public class  DoctorServiceImpl implements DoctorService{
 		responseDto.setStatusCode(200);		
 		return responseDto;
 	}	
+	
 	@Override
 	public List<SearchResponseDto> getAllDoctorsBySearchCreiteria(String location, String categery, String specialist) {
+		
 		List<Doctors> findByLocationAndCategeryAndSpecialist = doctorRepository.findByLocationAndCategeryAndSpecialist(location,categery,specialist);
 		
 		List<SearchResponseDto> listOfSearchResponseDtos=new ArrayList<>();
