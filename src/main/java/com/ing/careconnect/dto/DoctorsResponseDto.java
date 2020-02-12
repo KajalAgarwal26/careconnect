@@ -12,6 +12,7 @@ public class DoctorsResponseDto implements Serializable {
 	private static final long serialVersionUID = 1905122041950251207L;
 	private String message;
 	private Integer statusCode;
+	private String doctorName;
 	private transient List<Bookings> booking;
 	private transient Optional<Doctors> doctors;
 	public Optional<Doctors> getDoctors() {
@@ -37,5 +38,16 @@ public class DoctorsResponseDto implements Serializable {
 	}
 	public void setBooking(List<Bookings> booking) {
 		this.booking = booking;
-	}	
+	}
+	public String getDoctorName() {
+		return doctorName;
+	}
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

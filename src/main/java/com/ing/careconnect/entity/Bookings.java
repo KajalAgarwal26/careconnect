@@ -18,6 +18,8 @@ public class Bookings {
 	private String bookingDate;
 	private String slots;
 	private Long userId;
+	private String userName;
+	
 	public Long getBookingId() {
 		return bookingId;
 	}
@@ -55,6 +57,12 @@ public class Bookings {
 		this.userId = userId;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public Bookings() {
 		super();
 	}	
