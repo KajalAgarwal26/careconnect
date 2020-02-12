@@ -1,19 +1,17 @@
 package com.ing.careconnect.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.ing.careconnect.constant.CareConnectConstant;
 import com.ing.careconnect.dto.UserSlotRequestDto;
 import com.ing.careconnect.dto.UserSlotResponseDto;
 import com.ing.careconnect.entity.Bookings;
 import com.ing.careconnect.entity.Users;
-import com.ing.careconnect.exception.SlotBookingFailedException;
 import com.ing.careconnect.repository.BookingRepository;
 import com.ing.careconnect.repository.UserRepository;
 
@@ -47,9 +45,8 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public UserSlotResponseDto userSlot(UserSlotRequestDto userSlotRequestDto) {
-		LOGGER.debug("Inside BookingService :: bookingService");
-		Bookings booking = new Bookings();
-		booking = bookingRepository.findBySlotsAndDoctorId(userSlotRequestDto.getSlot(),
+		LOGGER.debug("Inside BookingService :: bookingService");		
+		Bookings booking = bookingRepository.findBySlotsAndDoctorId(userSlotRequestDto.getSlot(),
 				userSlotRequestDto.getDoctorId());
 		Users user = new Users();
 		user.setFirstName(userSlotRequestDto.getFirstName());
@@ -60,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
 		user.setType("user");
 		user = userRepository.save(user);
 		booking.setUserId(user.getUserId());
+		booking.setUserName(user.getFirstName() + user.getLastName());
 		booking.setBookingDate(LocalDate.now().toString());
 		bookingRepository.save(booking);
 		UserSlotResponseDto userSlotResponseDto = new UserSlotResponseDto();
