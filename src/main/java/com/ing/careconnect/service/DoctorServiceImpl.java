@@ -1,5 +1,10 @@
 package com.ing.careconnect.service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ing.careconnect.dto.DoctorsResponseDto;
+import com.ing.careconnect.dto.ResponseDto;
+import com.ing.careconnect.dto.SlotRequestDto;
 import com.ing.careconnect.entity.Bookings;
 import com.ing.careconnect.entity.Doctors;
 import com.ing.careconnect.exception.DoctorNotAvailableException;
@@ -16,6 +23,8 @@ import com.ing.careconnect.util.CareConnectUtil;
 
 @Service
 public class  DoctorServiceImpl implements DoctorService{
+
+	public static final String HOURS = "HOURS";
 
 	@Autowired
 	DoctorRepository  doctorRepository; 
@@ -43,4 +52,35 @@ public class  DoctorServiceImpl implements DoctorService{
 		return doctorsResponseDto;
 	}
 
+	
+	@Override
+	public ResponseDto blockSlots(Long doctorId, SlotRequestDto slotRequestDto) {				
+		
+		List<Bookings> bookingList = new ArrayList<>();
+		ResponseDto responseDto = new ResponseDto();
+		String fromDateTime = slotRequestDto.getDate() + slotRequestDto.getFromTime();
+		String toDateTime = slotRequestDto.getDate() + slotRequestDto.getTotime();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime dateFirst = LocalDateTime.parse(fromDateTime, formatter);
+		LocalDateTime dateLast = LocalDateTime.parse(toDateTime, formatter);		
+		
+		final ChronoUnit unit = ChronoUnit.valueOf(HOURS);
+		for (LocalDateTime dateBetween = dateFirst; !dateBetween.isAfter(dateLast); dateBetween = dateBetween
+				.plus(Duration.of(1, unit))) {			
+			//Create Booking entity.
+			Bookings booking = new Bookings();
+			booking.setDoctorId(doctorId);
+			booking.setDate(slotRequestDto.getDate());
+			booking.setSlots(dateBetween.format(formatter));
+			bookingList.add(booking);			
+		}		
+		if(!bookingList.isEmpty()) {
+			bookingRepository.saveAll(bookingList);	
+			
+		} 		
+		responseDto.setMessage("Success");
+		responseDto.setStatusCode(200);		
+		return responseDto;
+	}	
 }
