@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.ing.careconnect.dto.AllDoctorsDTO;
 import com.ing.careconnect.dto.DoctorsResponseDto;
+import com.ing.careconnect.dto.ResponseDto;
 import com.ing.careconnect.dto.SearchResponseDto;
+import com.ing.careconnect.dto.SlotRequestDto;
 import com.ing.careconnect.entity.Doctors;
 import com.ing.careconnect.service.DoctorService;
 
@@ -77,5 +79,21 @@ public class DoctorControllerTest {
 		Assert.assertNotNull(bookedSlots);
 		Assert.assertEquals(bookedSlots.getStatusCode().value(),200);
 		
+	  }
+	  @Test 
+	  public void testSaveVendorItemDetails() {
+		  SlotRequestDto slotRequestDto=new SlotRequestDto();
+		  slotRequestDto.setBlockDate("2020-02-10");
+		  slotRequestDto.setFromTime("10:30");
+		  slotRequestDto.setToTime("12:30");
+		ResponseDto responseDTO=new ResponseDto();
+		responseDTO.setMessage("success");
+		responseDTO.setStatusCode(200);
+		Mockito.when(doctorService.blockSlots(1L, slotRequestDto)).thenReturn(responseDTO);
+		
+		ResponseEntity<ResponseDto> saveVendorItemDetails = doctorController.saveVendorItemDetails(1L, slotRequestDto);
+		
+		Assert.assertNotNull(saveVendorItemDetails);
+		Assert.assertEquals(saveVendorItemDetails.getStatusCode().value(),200);
 	  }
 }

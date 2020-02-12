@@ -1,5 +1,7 @@
 package com.ing.careconnect.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.ing.careconnect.dto.LoginDto;
@@ -24,10 +27,9 @@ public class UserControllerTest {
 	  UserController userController;
 	  
 	  @Mock 
-	  UserService userService;
-	  
+	  UserService userService;	  
 	
-	 @Test 
+	 @Test
 	 public void testusersLoginPossitive() {
 	  
 	  List<Users> listUsers=new ArrayList<>(); Users user=new Users();
@@ -46,10 +48,8 @@ public class UserControllerTest {
 	  
 	  Mockito.when(userService.usersLogin(loginDto)).thenReturn(loginResponseDto);
 	  
-	  ResponseEntity<LoginResponseDto> usersLogin =
-	  userController.usersLogin(loginDto);
-	  
-	  //Assert.assertEquals(HttpStatus.OK,usersLogin.getStatusCode()); }
+	  ResponseEntity<LoginResponseDto> usersLogin = userController.usersLogin(loginDto);	  	 
+	  assertEquals(HttpStatus.OK,usersLogin.getStatusCode());
 	 }
 	  
 	  
@@ -72,7 +72,7 @@ public class UserControllerTest {
 	  Mockito.when(userService.usersLogin(loginDto)).thenReturn(loginResponseDto);
 	  
 	  loginResponseDto =userService.usersLogin(loginDto);
-	  Assert.assertEquals(new Integer(400), loginResponseDto.getStatusCode());
+	  Assert.assertEquals(Integer.valueOf(400), loginResponseDto.getStatusCode());
 	  }
 	  
 	  
