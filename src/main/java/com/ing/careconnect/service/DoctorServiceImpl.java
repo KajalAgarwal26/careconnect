@@ -11,14 +11,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ing.careconnect.dto.AllDoctorsDTO;
 import com.ing.careconnect.dto.DoctorsResponseDto;
 import com.ing.careconnect.dto.ResponseDto;
+import com.ing.careconnect.dto.SearchResponseDto;
 import com.ing.careconnect.dto.SlotRequestDto;
 import com.ing.careconnect.entity.Bookings;
 import com.ing.careconnect.entity.Doctors;
+import com.ing.careconnect.entity.Users;
 import com.ing.careconnect.exception.DoctorNotAvailableException;
+import com.ing.careconnect.exception.UserNotFoundException;
 import com.ing.careconnect.repository.BookingRepository;
 import com.ing.careconnect.repository.DoctorRepository;
+import com.ing.careconnect.repository.UserRepository;
 import com.ing.careconnect.util.CareConnectUtil;
 
 @Service
@@ -33,6 +38,9 @@ public class  DoctorServiceImpl implements DoctorService{
 	
 	@Autowired
 	BookingRepository bookingRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Override
 	public DoctorsResponseDto getBookedSlots(Long doctorId) {
@@ -85,4 +93,36 @@ public class  DoctorServiceImpl implements DoctorService{
 		responseDto.setStatusCode(200);		
 		return responseDto;
 	}	
+	@Override
+	public List<SearchResponseDto> getAllDoctorsBySearchCreiteria(String location, String categery, String specialist) {
+		List<Doctors> findByLocationAndCategeryAndSpecialist = doctorRepository.findByLocationAndCategeryAndSpecialist(location,categery,specialist);
+		
+		List<SearchResponseDto> listOfSearchResponseDtos=new ArrayList<>();
+		SearchResponseDto searchResponseDto=new SearchResponseDto();
+		for (Doctors doctors : findByLocationAndCategeryAndSpecialist) {
+			doctors.getUserId();
+			Optional<Users>  usersResp = userRepository.findById(doctors.getUserId());
+			if(! usersResp.isPresent()) {
+				throw new UserNotFoundException("user not found");
+			}else {
+				 String firstName = usersResp.get().getFirstName();
+				 String lastName = usersResp.get().getLastName();
+				 String userName=firstName+lastName;
+				 searchResponseDto.setName(userName); 
+				 searchResponseDto.setCategery(doctors.getCategery());
+				 searchResponseDto.setRating(doctors.getRating());
+				 searchResponseDto.setSpecialist(doctors.getSpecialist());
+			}
+		}
+		listOfSearchResponseDtos.add(searchResponseDto);
+		return listOfSearchResponseDtos;
+	}
+
+	@Override
+	public AllDoctorsDTO getAllDoctors() {
+		AllDoctorsDTO allDoctorsDTO=new AllDoctorsDTO();
+		List<Doctors> findAllResp = doctorRepository.findAll();
+		allDoctorsDTO.setDoctors(findAllResp);
+		return allDoctorsDTO;
+	}
 }
