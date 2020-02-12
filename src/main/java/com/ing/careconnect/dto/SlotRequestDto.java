@@ -4,7 +4,7 @@ public class SlotRequestDto {
 	
 	private String date;
 	private String fromTime;
-	private String totime;
+	private String toTime;
 	
 	public String getDate() {
 		return date;
@@ -18,10 +18,10 @@ public class SlotRequestDto {
 	public void setFromTime(String fromTime) {
 		this.fromTime = fromTime;
 	}
-	public String getTotime() {
-		return totime;
+	public String getToTime() {
+		return toTime;
 	}
-	public void setTotime(String totime) {
-		this.totime = totime;
+	public void setToTime(String toTime) {
+		this.toTime = toTime;
 	}	
 }

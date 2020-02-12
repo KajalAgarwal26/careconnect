@@ -24,6 +24,8 @@ import com.ing.careconnect.util.CareConnectUtil;
 @Service
 public class  DoctorServiceImpl implements DoctorService{
 
+	public static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+
 	public static final String HOURS = "HOURS";
 
 	@Autowired
@@ -58,10 +60,10 @@ public class  DoctorServiceImpl implements DoctorService{
 		
 		List<Bookings> bookingList = new ArrayList<>();
 		ResponseDto responseDto = new ResponseDto();
-		String fromDateTime = slotRequestDto.getDate() + slotRequestDto.getFromTime();
-		String toDateTime = slotRequestDto.getDate() + slotRequestDto.getTotime();
+		String fromDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getFromTime();
+		String toDateTime = slotRequestDto.getDate() +" "+ slotRequestDto.getToTime();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM);
 		LocalDateTime dateFirst = LocalDateTime.parse(fromDateTime, formatter);
 		LocalDateTime dateLast = LocalDateTime.parse(toDateTime, formatter);		
 		
@@ -72,12 +74,12 @@ public class  DoctorServiceImpl implements DoctorService{
 			Bookings booking = new Bookings();
 			booking.setDoctorId(doctorId);
 			booking.setDate(slotRequestDto.getDate());
-			booking.setSlots(dateBetween.format(formatter));
+			String[] slipSlots = dateBetween.format(formatter).split(" ");
+			booking.setSlots(slipSlots[1]);
 			bookingList.add(booking);			
 		}		
 		if(!bookingList.isEmpty()) {
-			bookingRepository.saveAll(bookingList);	
-			
+			bookingRepository.saveAll(bookingList);				
 		} 		
 		responseDto.setMessage("Success");
 		responseDto.setStatusCode(200);		
