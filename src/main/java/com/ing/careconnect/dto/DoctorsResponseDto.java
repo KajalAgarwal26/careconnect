@@ -37,9 +37,5 @@ public class DoctorsResponseDto implements Serializable {
 	}
 	public void setBooking(List<Bookings> booking) {
 		this.booking = booking;
-	}
-	
-	
-	
-	
+	}	
 }
