@@ -1,11 +1,13 @@
 package com.ing.careconnect.service;
 
-import java.util.Optional;
-
-import com.ing.careconnect.entity.Doctors;
+import com.ing.careconnect.dto.DoctorsResponseDto;
+import com.ing.careconnect.dto.ResponseDto;
+import com.ing.careconnect.dto.SlotRequestDto;
 
 public interface DoctorService {
 
-	Optional<Doctors> getBookedSlots(Long doctorId);
+	DoctorsResponseDto getBookedSlots(Long doctorId);
 
+	ResponseDto blockSlots(Long doctorId, SlotRequestDto slotRequestDto);
+	
 }
