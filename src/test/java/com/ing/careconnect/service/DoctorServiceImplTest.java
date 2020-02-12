@@ -31,6 +31,12 @@ import com.ing.careconnect.repository.UserRepository;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DoctorServiceImplTest {
 	
+	public static final String CARDIOLOGIST = "Cardiologist";
+
+	public static final String ELECTRONIC_CITY = "Electronic City";
+
+	public static final String HEART = "Heart";
+
 	@InjectMocks
 	DoctorServiceImpl doctorServiceImpl;
 	
@@ -136,16 +142,16 @@ public class DoctorServiceImplTest {
 	
 	@Test
 	public void getAllDoctorsBySearchCreiteriaTest() {
-		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist("Electronic City", "Heart", "Cardiologist")).thenReturn(doctorList);
+		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist(ELECTRONIC_CITY, HEART, CARDIOLOGIST)).thenReturn(doctorList);
 		Mockito.when(userRepository.findById(1L)).thenReturn(usersOpt);
-		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria("Electronic City", "Heart", "Cardiologist");		
+		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria(ELECTRONIC_CITY, HEART, CARDIOLOGIST);		
 		assertEquals(1, listOfSearchResponseDtos.size());		
 	}	
 	
 	@Test(expected=UserNotFoundException.class)
 	public void getAllDoctorsBySearchCreiteriaExceptionTest() {
-		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist("Electronic City", "Heart", "Cardiologist")).thenReturn(doctorList);
+		Mockito.when(doctorRepository.findByLocationAndCategeryAndSpecialist(ELECTRONIC_CITY, HEART, CARDIOLOGIST)).thenReturn(doctorList);
 		Mockito.when(userRepository.findById(2L)).thenReturn(usersOpt);
-		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria("Electronic City", "Heart", "Cardiologist");		
+		listOfSearchResponseDtos = doctorServiceImpl.getAllDoctorsBySearchCreiteria(ELECTRONIC_CITY, HEART, CARDIOLOGIST);		
 	}	
 }
