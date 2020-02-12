@@ -73,7 +73,7 @@ public class DoctorController {
 	 * @return 	responseDto			Will return success code.
 	 */
 	@PostMapping("/{doctorId}/slotdetails")
-	public ResponseEntity<ResponseDto> saveVendorItemDetails(@PathVariable("doctorId") Long doctorId, @RequestBody SlotRequestDto slotRequestDto)  {
+	public ResponseEntity<ResponseDto> blockSlots(@PathVariable("doctorId") Long doctorId, @RequestBody SlotRequestDto slotRequestDto)  {
 		ResponseDto responseDto = doctorService.blockSlots(doctorId, slotRequestDto);
 		return ResponseEntity.ok().body(responseDto);
 	}
