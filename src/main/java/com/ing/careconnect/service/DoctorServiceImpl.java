@@ -54,7 +54,7 @@ public class  DoctorServiceImpl implements DoctorService{
 		List<Bookings> bookingResp = bookingRepository.findByDoctorId(doctorId1);
 		
 		doctorsResponseDto.setMessage("success");
-		doctorsResponseDto.setStatusCode(200);;
+		doctorsResponseDto.setStatusCode(200);
 		doctorsResponseDto.setBooking(bookingResp);
 		
 		doctorsResponseDto.setDoctors(doctorResp);
@@ -93,8 +93,10 @@ public class  DoctorServiceImpl implements DoctorService{
 		responseDto.setStatusCode(200);		
 		return responseDto;
 	}	
+	
 	@Override
 	public List<SearchResponseDto> getAllDoctorsBySearchCreiteria(String location, String categery, String specialist) {
+		
 		List<Doctors> findByLocationAndCategeryAndSpecialist = doctorRepository.findByLocationAndCategeryAndSpecialist(location,categery,specialist);
 		
 		List<SearchResponseDto> listOfSearchResponseDtos=new ArrayList<>();

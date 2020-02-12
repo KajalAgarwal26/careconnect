@@ -54,9 +54,7 @@ public class Bookings {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
-	
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;

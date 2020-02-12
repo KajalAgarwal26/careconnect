@@ -7,16 +7,13 @@ import java.util.Optional;
 import com.ing.careconnect.entity.Bookings;
 import com.ing.careconnect.entity.Doctors;
 
-public class DoctorsResponseDto implements Serializable{
+public class DoctorsResponseDto implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1905122041950251207L;
 	private String message;
 	private Integer statusCode;
-	private List<Bookings> booking;
-	private Optional<Doctors> doctors;
+	private transient List<Bookings> booking;
+	private transient Optional<Doctors> doctors;
 	public Optional<Doctors> getDoctors() {
 		return doctors;
 	}

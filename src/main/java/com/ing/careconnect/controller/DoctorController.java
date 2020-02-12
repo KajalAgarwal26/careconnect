@@ -77,5 +77,4 @@ public class DoctorController {
 		ResponseDto responseDto = doctorService.blockSlots(doctorId, slotRequestDto);
 		return ResponseEntity.ok().body(responseDto);
 	}
-
 }
