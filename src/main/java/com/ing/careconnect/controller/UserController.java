@@ -1,10 +1,4 @@
 package com.ing.careconnect.controller;
-/**
- * 
- * @author bojja.r
- * @version 1.0
- * @since 30-01-2020
- */
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +34,7 @@ public class UserController {
 	UserService userService;
 
 	/**
-	 * This method is used to validating the user by providing the input as LoginDto
+	 * This method is used to login the account by using mobile and password
 	 * 
 	 * @param loginDto
 	 * @return LoginResponseDto
