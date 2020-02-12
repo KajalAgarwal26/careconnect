@@ -66,7 +66,7 @@ public class DoctorControllerTest {
 		Mockito.when(doctorService.getAllDoctorsBySearchCreiteria(doctors.getLocation(), doctors.getCategery(), doctors.getSpecialist())).thenReturn(searchResponseDTO);
 		ResponseEntity<List<SearchResponseDto>> allDoctorsBySearch = doctorController.getAllDoctorsBySearch(doctors.getLocation(), doctors.getCategery(), doctors.getSpecialist());
 		Assert.assertNotNull(allDoctorsBySearch);
-		Assert.assertEquals(allDoctorsBySearch.getStatusCode().value(),200);
+		Assert.assertEquals(200, allDoctorsBySearch.getStatusCode().value());
 	  }
 	  @Test 
 	  public void testGetBookedSlots() {
@@ -77,7 +77,7 @@ public class DoctorControllerTest {
 		Mockito.when(doctorService.getBookedSlots(1L)).thenReturn(doctorsResponseDTO);
 		ResponseEntity<DoctorsResponseDto> bookedSlots = doctorController.getBookedSlots(1L);
 		Assert.assertNotNull(bookedSlots);
-		Assert.assertEquals(bookedSlots.getStatusCode().value(),200);
+		Assert.assertEquals(200, bookedSlots.getStatusCode().value());
 		
 	  }
 	  @Test 
@@ -94,6 +94,6 @@ public class DoctorControllerTest {
 		ResponseEntity<ResponseDto> saveVendorItemDetails = doctorController.saveVendorItemDetails(1L, slotRequestDto);
 		
 		Assert.assertNotNull(saveVendorItemDetails);
-		Assert.assertEquals(saveVendorItemDetails.getStatusCode().value(),200);
+		Assert.assertEquals(200, saveVendorItemDetails.getStatusCode().value());
 	  }
 }
