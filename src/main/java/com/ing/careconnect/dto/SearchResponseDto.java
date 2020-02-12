@@ -12,6 +12,13 @@ public class SearchResponseDto implements Serializable{
 	private String categery;
 	private String specialist;
 	private String rating;
+	private Long doctorId;
+	public Long getDoctorId() {
+		return doctorId;
+	}
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
 	public String getName() {
 		return name;
 	}

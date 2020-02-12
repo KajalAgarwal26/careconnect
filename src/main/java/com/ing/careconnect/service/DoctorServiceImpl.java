@@ -114,6 +114,7 @@ public class  DoctorServiceImpl implements DoctorService{
 				 searchResponseDto.setCategery(doctors.getCategery());
 				 searchResponseDto.setRating(doctors.getRating());
 				 searchResponseDto.setSpecialist(doctors.getSpecialist());
+				 searchResponseDto.setDoctorId(doctors.getDoctorId());
 			}
 		}
 		listOfSearchResponseDtos.add(searchResponseDto);
