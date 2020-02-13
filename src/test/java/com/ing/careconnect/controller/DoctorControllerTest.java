@@ -36,7 +36,6 @@ public class DoctorControllerTest {
 
 	@Before
 	public void setUp() {
-
 		doctors.setDoctorId(1L);
 		doctors.setLocation("Bangalore");
 		doctors.setCategery("Heart");
@@ -45,19 +44,14 @@ public class DoctorControllerTest {
 
 	@Test
 	public void testGetAllDoctors() {
-
 		Mockito.when(doctorService.getAllDoctors()).thenReturn(doctorsResp);
-
 		ResponseEntity<AllDoctorsDTO> allDoctors = doctorController.getAllDoctors();
-
 		Assert.assertNotNull(allDoctors);
 		Assert.assertEquals(200, allDoctors.getStatusCode().value());
-
 	}
 
 	@Test
 	public void testGetAllDoctorsBySearch() {
-
 		List<SearchResponseDto> searchResponseDTO = new ArrayList<>();
 		SearchResponseDto searchResponseDto2 = new SearchResponseDto();
 		searchResponseDto2.setDoctorId(1L);
@@ -73,15 +67,12 @@ public class DoctorControllerTest {
 
 	@Test
 	public void testGetBookedSlots() {
-
 		DoctorsResponseDto doctorsResponseDTO = new DoctorsResponseDto();
 		doctorsResponseDTO.setDoctors(Optional.of(doctors));
-
 		Mockito.when(doctorService.getBookedSlots(1L)).thenReturn(doctorsResponseDTO);
 		ResponseEntity<DoctorsResponseDto> bookedSlots = doctorController.getBookedSlots(1L);
 		Assert.assertNotNull(bookedSlots);
 		Assert.assertEquals(200, bookedSlots.getStatusCode().value());
-
 	}
 
 	@Test
@@ -94,9 +85,7 @@ public class DoctorControllerTest {
 		responseDTO.setMessage("success");
 		responseDTO.setStatusCode(200);
 		Mockito.when(doctorService.blockSlots(1L, slotRequestDto)).thenReturn(responseDTO);
-
 		ResponseEntity<ResponseDto> saveVendorItemDetails = doctorController.blockSlots(1L, slotRequestDto);
-
 		Assert.assertNotNull(saveVendorItemDetails);
 		Assert.assertEquals(200, saveVendorItemDetails.getStatusCode().value());
 	}
