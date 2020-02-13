@@ -79,7 +79,7 @@ public class  DoctorServiceImpl implements DoctorService{
 		LocalDateTime dateLast = LocalDateTime.parse(toDateTime, formatter);		
 		
 		final ChronoUnit unit = ChronoUnit.valueOf(HOURS);
-		for (LocalDateTime dateBetween = dateFirst; !dateBetween.isAfter(dateLast); dateBetween = dateBetween
+		for (LocalDateTime dateBetween = dateFirst; dateBetween.isBefore(dateLast); dateBetween = dateBetween
 				.plus(Duration.of(1, unit))) {			
 			//Create Booking entity.
 			Bookings booking = new Bookings();

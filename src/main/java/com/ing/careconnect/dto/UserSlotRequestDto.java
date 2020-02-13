@@ -7,7 +7,7 @@ public class UserSlotRequestDto {
 	private String lastName;
 	private Long mobile;
 	private String email;
-	private String Slot;
+	private String slot;
     private Long doctorId;
  
 	public Long getDoctorId() {
@@ -15,12 +15,12 @@ public class UserSlotRequestDto {
 	}
 	public void setDoctorId(Long doctorId) {
 		this.doctorId = doctorId;
-	}
+	}	
 	public String getSlot() {
-		return Slot;
+		return slot;
 	}
 	public void setSlot(String slot) {
-		Slot = slot;
+		this.slot = slot;
 	}
 	public String getFirstName() {
 		return firstName;
