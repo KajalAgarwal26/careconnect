@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public UserSlotResponseDto userSlot(UserSlotRequestDto userSlotRequestDto) {
-		LOGGER.debug("Inside BookingService :: bookingService");		
+		LOGGER.debug("Inside BookingService :: bookingService");
 		Bookings booking = bookingRepository.findBySlotsAndDoctorId(userSlotRequestDto.getSlot(),
 				userSlotRequestDto.getDoctorId());
 		Users user = new Users();
@@ -55,7 +55,7 @@ public class BookingServiceImpl implements BookingService {
 		user.setMobile(userSlotRequestDto.getMobile());
 		user.setPassword("12345");
 		user.setType("user");
-		user = userRepository.save(user);
+		userRepository.save(user);
 		booking.setUserId(user.getUserId());
 		booking.setUserName(user.getFirstName() + user.getLastName());
 		booking.setBookingDate(LocalDate.now().toString());
